@@ -38,12 +38,12 @@ Work one chunk, read the output, then continue. No API key until chunk 10.
 
 ## Run this next
 
-You are at **chunk 3**. Download the parquet index and print one row:
+You are at **chunk 4**. Count side tasks, pipeline stages, and T/S/E:
 
 ```bash
-uv run python scripts/download_and_peek.py
+uv run python scripts/census.py
 ```
 
-Expect ~2,644 rows × ~135 columns. Read the grouped column list, then the peeked row: metadata (`attack_summary`, T/S/E) vs stored FT scores (`ft_claude-opus-4-5-…`). The tool-call transcript is not in this file.
+Compare `source_group` to paper Table 5. **Opus Only n=196** should match Baseline. Other Table 5 n's are larger (eval pool, not this 2,644-row index). Notice S3 and T1 shares, and that evasion codes are multi-label.
 
-Then chunk 4: census counts (`scripts/census.py`, not written yet).
+Then chunk 5: catch rates from stored FT scores (`scripts/catch_rates.py`, not written yet).
