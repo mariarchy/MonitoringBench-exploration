@@ -38,10 +38,10 @@ Work one chunk, read the output, then continue. No API key until chunk 10.
 
 ## Run this next
 
-You are at **chunk 5**. Catch rates from stored FT scores:
+You are at **chunk 7**. Download `final_dataset.zip` and extract only the 12 slice `.eval` logs:
 
 ```bash
-uv run python scripts/catch_rates.py
+uv run python scripts/extract_slice_logs.py
 ```
 
-Check: Opus 4.5 overall ~70%; Opus Only ~94.9%; Refined harder than baseline. Then chunk 6: freeze 12 UUIDs (`scripts/select_slice.py`, not written yet).
+That script is not written yet. Chunk 6 froze the IDs in `slices/pilot_v1.json`.
