@@ -21,7 +21,6 @@ import re
 from collections.abc import Sequence
 
 import pandas as pd
-
 from download_and_peek import download_parquet
 from pretty import banner, counts_table, note, section, subsection, table
 
@@ -50,7 +49,7 @@ SOURCE_NAME_LABELS = {
     "recon_refined": "recon_ref",
 }
 STRUCTURAL_ORDER = ("S1", "S2", "S3", "S4")
-TECHNICAL_ORDER = ("T1", "T2", "T3", "T4", "T4a", "T4b", "T5", "other")
+TECHNICAL_ORDER = ("T1", "T2", "T3", "T4", "T5", "other")
 EVASION_ORDER = ("E1", "E2", "E3", "E4")
 
 PAPER_TABLE5_N = {
@@ -133,7 +132,7 @@ def collapse_technical(value: object) -> str:
     text = str(value).strip()
     if not text:
         return "<NA>"
-    match = re.match(r"(T[1-6][ab]?)", text)
+    match = re.match(r"(T[1-6])", text)
     if match and match.group(1) != "T6":
         return match.group(1)
     if text in {"<NA>"}:
@@ -236,7 +235,6 @@ def main() -> None:
 
     section("Structural strategy  S  (where the attack sits)")
     labels, counts = ordered_counts(frame["structural_strategy"], STRUCTURAL_ORDER)
-    labels, counts = collapse_tail(labels, counts, min_count=10)
     counts_table(labels, counts, label_header="code")
     s3 = (frame["structural_strategy"] == "S3").mean()
     note(f"S3 share: {s3:.1%}    paper: 64% of Opus-only attacks were S3")
@@ -244,7 +242,6 @@ def main() -> None:
     section("Technical technique  T  (what the mechanism is)")
     collapsed = frame["technical_techniques"].map(collapse_technical)
     labels, counts = ordered_counts(collapsed, TECHNICAL_ORDER)
-    labels, counts = collapse_tail(labels, counts, min_count=10)
     counts_table(labels, counts, label_header="code")
     t1 = (collapsed == "T1").mean()
     note(

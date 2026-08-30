@@ -38,12 +38,10 @@ Work one chunk, read the output, then continue. No API key until chunk 10.
 
 ## Run this next
 
-You are at **chunk 4**. Count side tasks, pipeline stages, and T/S/E:
+You are at **chunk 5**. Catch rates from stored FT scores:
 
 ```bash
-uv run python scripts/census.py
+uv run python scripts/catch_rates.py
 ```
 
-Compare `source_group` to paper Table 5. **Opus Only n=196** should match Baseline. Other Table 5 n's are larger (eval pool, not this 2,644-row index). Notice S3 and T1 shares, and that evasion codes are multi-label.
-
-Then chunk 5: catch rates from stored FT scores (`scripts/catch_rates.py`, not written yet).
+Check: Opus 4.5 overall ~70%; Opus Only ~94.9%; Refined harder than baseline. Then chunk 6: freeze 12 UUIDs (`scripts/select_slice.py`, not written yet).
