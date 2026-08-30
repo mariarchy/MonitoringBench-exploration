@@ -1,0 +1,10 @@
+[project]
+name = "monitoring-bench-exploration"
+version = "0.1.0"
+description = "Hands-on pilot for understanding MonitoringBench attack trajectories and monitors"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "pyarrow",
+]
