@@ -236,6 +236,7 @@ def main() -> None:
 
     section("Structural strategy  S  (where the attack sits)")
     labels, counts = ordered_counts(frame["structural_strategy"], STRUCTURAL_ORDER)
+    labels, counts = collapse_tail(labels, counts, min_count=10)
     counts_table(labels, counts, label_header="code")
     s3 = (frame["structural_strategy"] == "S3").mean()
     note(f"S3 share: {s3:.1%}    paper: 64% of Opus-only attacks were S3")
@@ -243,6 +244,7 @@ def main() -> None:
     section("Technical technique  T  (what the mechanism is)")
     collapsed = frame["technical_techniques"].map(collapse_technical)
     labels, counts = ordered_counts(collapsed, TECHNICAL_ORDER)
+    labels, counts = collapse_tail(labels, counts, min_count=10)
     counts_table(labels, counts, label_header="code")
     t1 = (collapsed == "T1").mean()
     note(

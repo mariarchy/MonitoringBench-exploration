@@ -7,7 +7,7 @@ from collections.abc import Iterable, Sequence
 
 WIDTH = 88
 INDENT = "  "
-BAR_WIDTH = 22
+BAR_WIDTH = 24
 
 
 def banner(title: str, *details: str) -> None:
@@ -129,7 +129,7 @@ def counts_table(
         total = sum(counts)
         total_pct = "100.0%" if percent_of is None else "—"
         if show_bar:
-            rows.append(("total", f"{total:,}", total_pct, bar(1.0 if percent_of is None else 0.0)))
+            rows.append(("total", f"{total:,}", total_pct, ""))
         else:
             rows.append(("total", f"{total:,}", total_pct))
     headers: tuple[str, ...]
