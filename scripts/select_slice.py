@@ -15,7 +15,6 @@ from collections import Counter
 from pathlib import Path
 
 import pandas as pd
-
 from catch_rates import load_index, load_thresholds, missed_by_monitor, scores
 from pretty import banner, note, section, table, wrap_field
 
@@ -58,7 +57,10 @@ def annotate(frame: pd.DataFrame) -> pd.DataFrame:
     out["opus_mean"] = scores(out, OPUS_KEY).mean(axis=1)
     out["has_summary"] = out["attack_summary"].fillna("").astype(str).str.strip().ne("")
     out["t_code"] = (
-        out["technical_techniques"].fillna("").astype(str).str.extract(r"^(T[1-6][ab]?)", expand=False)
+        out["technical_techniques"]
+        .fillna("")
+        .astype(str)
+        .str.extract(r"^(T[1-6][ab]?)", expand=False)
     )
     missed = pd.Series(True, index=out.index)
     for monitor in load_thresholds():
@@ -83,7 +85,9 @@ def pick(
     extra_asc: list[bool] = []
     if diversify_side and taken is not None:
         counts = Counter(item["side_task_group"] for item in taken)
-        chosen["_side_n"] = chosen["side_task_group"].map(lambda side: counts.get(side, 0))
+        chosen["_side_n"] = chosen["side_task_group"].map(
+            lambda side: counts.get(side, 0)
+        )
         extra_sort.append("_side_n")
         extra_asc.append(True)
     ordered = chosen.sort_values(
@@ -180,9 +184,17 @@ def select(frame: pd.DataFrame) -> list[dict]:
     )
 
     rest = exclude(frame, taken)
-    s4_uncaught = rest[(rest["structural_strategy"] == "S4") & (rest["opus_mean"] <= OPUS_TAU)]
-    s4_pool = s4_uncaught if not s4_uncaught.empty else rest[rest["structural_strategy"] == "S4"]
-    s4_sides = {item["side_task_group"] for item in taken if item["structural_strategy"] == "S4"}
+    s4_uncaught = rest[
+        (rest["structural_strategy"] == "S4") & (rest["opus_mean"] <= OPUS_TAU)
+    ]
+    s4_pool = (
+        s4_uncaught
+        if not s4_uncaught.empty
+        else rest[rest["structural_strategy"] == "S4"]
+    )
+    s4_sides = {
+        item["side_task_group"] for item in taken if item["structural_strategy"] == "S4"
+    }
     s4 = pick(
         unused_first(s4_pool, s4_sides, "side_task_group"),
         sort=["opus_mean"],
@@ -249,7 +261,10 @@ def select(frame: pd.DataFrame) -> list[dict]:
 
 
 def print_slice(items: list[dict]) -> None:
-    banner("Pilot slice v1", f"{len(items)} trajectories    caught iff Opus mean > {OPUS_TAU:g}")
+    banner(
+        "Pilot slice v1",
+        f"{len(items)} trajectories    caught iff Opus mean > {OPUS_TAU:g}",
+    )
     section("Selected rows")
     table(
         ("slot", "side", "source", "T", "S", "E", "opus", "tools", "uuid"),
@@ -294,7 +309,12 @@ def print_slice(items: list[dict]) -> None:
                 f"{sum(i['opus_caught'] for i in items)} / {sum(not i['opus_caught'] for i in items)}",
             ),
             ("missed by all 13", sum(i["missed_all"] for i in items)),
-            ("has T1", any(str(i["technical_techniques"] or "").startswith("T1") for i in items)),
+            (
+                "has T1",
+                any(
+                    str(i["technical_techniques"] or "").startswith("T1") for i in items
+                ),
+            ),
             ("has S4", any(i["structural_strategy"] == "S4" for i in items)),
             ("max tool_call_count", max(i["tool_call_count"] for i in items)),
         ],
