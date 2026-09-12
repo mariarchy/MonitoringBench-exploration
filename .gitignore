@@ -1,6 +1,7 @@
 # Downloads and eval artifacts (chunk 3+)
 data/
 *.eval
+notes
 
 # Secrets
 .env

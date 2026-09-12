@@ -38,10 +38,10 @@ Work one chunk, read the output, then continue. No API key until chunk 10.
 
 ## Run this next
 
-You are at **chunk 7**. Download `final_dataset.zip` and extract only the 12 slice `.eval` logs:
+You are at **chunk 9**. Fill the FT monitor prompt for one sample (no API):
 
 ```bash
-uv run python scripts/extract_slice_logs.py
+uv run python scripts/format_monitor_prompt.py
 ```
 
-That script is not written yet. Chunk 6 froze the IDs in `slices/pilot_v1.json`.
+That script is not written yet. Chunks 7–8 left the 12 `.eval` logs in `data/logs/` and a readable dump in `notes/`.

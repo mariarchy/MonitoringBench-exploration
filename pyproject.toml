@@ -5,6 +5,8 @@ description = "Hands-on pilot for understanding MonitoringBench attack trajector
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "huggingface-hub>=1.29.0",
+    "inspect-ai",
     "pandas",
     "pyarrow",
 ]
