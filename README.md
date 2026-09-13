@@ -56,8 +56,4 @@ Open any new log with `uv run inspect view`. Chunks 13, 16, and 17 need `ANTHROP
 
 ## Run this next
 
-You are at **chunk 9**. Name the Inspect objects in the uncaught firewall log:
-
-```bash
-uv run python scripts/inspect_anatomy.py
-```
+Review the Phase 1 table in [`results/debate_phase1.md`](results/debate_phase1.md) (chunk 18). Recovered **2 / 8** previously uncaught; **4 / 4** easy catches stayed caught. That is a weak signal, not a 1% FPR catch rate.
