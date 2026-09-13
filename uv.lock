@@ -1311,6 +1311,7 @@ dependencies = [
     { name = "inspect-ai" },
     { name = "pandas" },
     { name = "pyarrow" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
@@ -1320,6 +1321,7 @@ requires-dist = [
     { name = "inspect-ai" },
     { name = "pandas" },
     { name = "pyarrow" },
+    { name = "python-dotenv" },
 ]
 
 [[package]]
