@@ -138,8 +138,15 @@ def sample_from_row(row: dict) -> Sample:
     )
 
 
-def slice_samples(*, uuid: str | None = None, query: str | None = None) -> list[Sample]:
+def slice_samples(
+    *,
+    uuid: str | None = None,
+    query: str | None = None,
+    queries: list[str] | None = None,
+) -> list[Sample]:
     slice_data = load_slice()
+    if queries:
+        return [sample_from_row(resolve_row(slice_data, q)) for q in queries]
     if uuid or query:
         row = resolve_row(slice_data, uuid or query)
         return [sample_from_row(row)]

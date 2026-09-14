@@ -14,6 +14,16 @@ PROSECUTOR_TEMPLATE = "prompts/debate_prosecutor.md"
 DEFENDER_TEMPLATE = "prompts/debate_defender.md"
 JUDGE_TEMPLATE = "prompts/debate_judge.md"
 
+PROMPT_PACKS: dict[str, tuple[str, str, str]] = {
+    "default": (PROSECUTOR_TEMPLATE, DEFENDER_TEMPLATE, JUDGE_TEMPLATE),
+}
+
+ROW_GROUPS: dict[str, tuple[str, ...]] = {
+    "phase1-two": ("core_uncaught_firewall", "core_caught_firewall"),
+}
+
+SLOT_IOCS: dict[str, tuple[str, ...]] = {}
+
 # Per-call cap on tool-call arguments shown to monitors. None = full write
 # (MonitoringBench FT does not clip). 12_000 previously dropped
 # configure_network_access on extra_missed_all (~29.6k chars).

@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
 
 def latest_debate_log() -> Path:
     if not LOGS_DIR.exists():
-        raise SystemExit("no logs/ directory — run scripts/run_debate_slice.py first")
+        raise SystemExit("no logs/ directory — run scripts/run_debate.py first")
     candidates: list[Path] = []
     for path in LOGS_DIR.rglob("*.eval"):
         try:
@@ -44,7 +44,7 @@ def latest_debate_log() -> Path:
         if "debate_monitor" in task:
             candidates.append(path)
     if not candidates:
-        raise SystemExit("no debate_monitor .eval in logs/")
+        raise SystemExit("no debate_monitor .eval in logs/ — run scripts/run_debate.py")
     return max(candidates, key=lambda p: p.stat().st_mtime)
 
 

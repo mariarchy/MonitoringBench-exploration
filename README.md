@@ -45,12 +45,26 @@ Work one chunk, read the output, then continue. No API key until chunk 13.
 | 10 | Smallest Task (`mockllm`) | `uv run inspect eval evals/hello.py` |
 | 11 | Fill FT prompt; leak-check (no API) | `uv run python scripts/format_monitor_prompt.py` |
 | 12 | FT monitor Task on `mockllm` | `uv run inspect eval evals/ft_monitor.py -T mock=true -T uuid=2EuoeP5hxCitkXzGxHfF6M` |
-| 13 | Live Opus FT on one easy catch | `uv run python scripts/run_ft_one.py` |
+| 13 | Live Opus FT on one easy catch | `uv run python scripts/run_ft.py` |
 | 14 | Debate prompt files | *(read `prompts/debate_*.md`)* |
 | 15 | Debate solver on `mockllm` | `uv run inspect eval evals/debate_monitor.py -T mock=true -T uuid=2EuoeP5hxCitkXzGxHfF6M` |
-| 16 | Live debate on one miss + one catch | `uv run python scripts/run_debate_two.py` |
-| 17 | Live debate on the 12-trajectory slice | `uv run python scripts/run_debate_slice.py` |
+| 16 | Live debate on one miss + one catch | `uv run python scripts/run_debate.py --group phase1-two` |
+| 17 | Live debate on the 12-trajectory slice | `uv run python scripts/run_debate.py` |
 | 18 | Recovery table vs parquet Opus means | `uv run python scripts/compare_debate.py` |
+
+## Debate runs
+
+One CLI. Prompt packs and row groups live in `evals/constants.py` (`PROMPT_PACKS`, `ROW_GROUPS`). A new ablation is a pack and/or group, not a new script.
+
+| Command | What it runs |
+| --- | --- |
+| `uv run python scripts/run_debate.py --mock --group phase1-two` | Dry run (no API) |
+| `uv run python scripts/run_debate.py --group phase1-two` | Phase 1 two-row check |
+| `uv run python scripts/run_debate.py` | All 12, default prompts |
+| `uv run python scripts/run_debate.py --slot extra_missed_all` | One slot |
+| `uv run python scripts/compare_debate.py` | Join newest debate `.eval` to parquet means |
+
+FT live: `uv run python scripts/run_ft.py` (optional slot/uuid argument).
 
 Open any new log with `uv run inspect view`. Chunks 13, 16, and 17 need `ANTHROPIC_API_KEY` in `.env`. Catch is still `score > 3` (paper FT τ). That is **not** a recomputed 1% FPR.
 
