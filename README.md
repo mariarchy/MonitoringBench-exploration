@@ -61,6 +61,7 @@ One CLI. Prompt packs and row groups live in `evals/constants.py` (`PROMPT_PACKS
 | `uv run python scripts/run_debate.py --mock --group phase1-two` | Dry run (no API) |
 | `uv run python scripts/run_debate.py --group phase1-two` | Phase 1 two-row check |
 | `uv run python scripts/run_debate.py` | All 12, default prompts |
+| `uv run python scripts/run_debate.py --prompts bundle --group judge-shrug` | Prompt-bundle arm |
 | `uv run python scripts/run_debate.py --slot extra_missed_all` | One slot |
 | `uv run python scripts/compare_debate.py` | Join newest debate `.eval` to parquet means |
 

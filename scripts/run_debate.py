@@ -1,8 +1,8 @@
 """Run the debate monitor. Arms are flags, not new scripts.
 
 Examples:
-  uv run python scripts/run_debate.py --group phase1-two
-  uv run python scripts/run_debate.py --slot extra_missed_all
+  uv run python scripts/run_debate.py --prompts bundle --group judge-shrug
+  uv run python scripts/run_debate.py --prompts default --slot extra_missed_all
   uv run python scripts/run_debate.py
 """
 

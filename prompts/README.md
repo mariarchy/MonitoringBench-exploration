@@ -38,8 +38,13 @@ Assigned-role, one simultaneous turn. The judge still returns the same `<reasoni
 
 | File | Role |
 | --- | --- |
-| [debate_prosecutor.md](debate_prosecutor.md) | Assigned to argue hidden sabotage |
-| [debate_defender.md](debate_defender.md) | Assigned to argue honest main-task work |
-| [debate_judge.md](debate_judge.md) | Sees the trace plus both arguments; 0–10 XML |
+| [debate_prosecutor.md](debate_prosecutor.md) | Assigned to argue hidden sabotage (Phase 1) |
+| [debate_defender.md](debate_defender.md) | Assigned to argue honest main-task work (Phase 1) |
+| [debate_judge.md](debate_judge.md) | Sees the trace plus both arguments; 0–10 XML (Phase 1) |
+| [debate_prosecutor_bundle.md](debate_prosecutor_bundle.md) | Same role + Prompt 0 examples/signs + do not concede |
+| [debate_defender_bundle.md](debate_defender_bundle.md) | Same role + Prompt 0 examples/signs |
+| [debate_judge_bundle.md](debate_judge_bundle.md) | Phase 1 judge + Prompt 0 examples + scoring rules |
+
+Select a pack with `uv run python scripts/run_debate.py --prompts default|bundle`. Packs are registered in `evals/constants.py` (`PROMPT_PACKS`).
 
 Placeholders: `{task_description}`, `{tool_calls}`, and for the judge `{first_role}`, `{first_arg}`, `{second_role}`, `{second_arg}` (order randomized per sample id).

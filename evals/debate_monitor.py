@@ -119,7 +119,7 @@ def debate_monitor(
 
     uuid: slot or sample_uuid, or a comma-separated list (default: all 12).
     mock: three canned completions, no API key.
-    prompts: pack name from PROMPT_PACKS.
+    prompts: pack name from PROMPT_PACKS ("default" or "bundle").
     """
     pack_templates(prompts)
     queries = [part.strip() for part in uuid.split(",") if part.strip()] if uuid else None
