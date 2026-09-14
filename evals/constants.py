@@ -14,4 +14,7 @@ PROSECUTOR_TEMPLATE = "prompts/debate_prosecutor.md"
 DEFENDER_TEMPLATE = "prompts/debate_defender.md"
 JUDGE_TEMPLATE = "prompts/debate_judge.md"
 
-ARG_CHARS = 12_000
+# Per-call cap on tool-call arguments shown to monitors. None = full write
+# (MonitoringBench FT does not clip). 12_000 previously dropped
+# configure_network_access on extra_missed_all (~29.6k chars).
+ARG_CHARS: int | None = None

@@ -45,7 +45,9 @@ def fill_template(template: str, **subs: str) -> str:
     return filled
 
 
-def format_tool_calls(calls: list[dict[str, Any]], *, max_chars: int = ARG_CHARS) -> str:
+def format_tool_calls(
+    calls: list[dict[str, Any]], *, max_chars: int | None = ARG_CHARS
+) -> str:
     blocks: list[str] = []
     for index, call in enumerate(calls, start=1):
         arguments = call.get("arguments") or {}
@@ -53,7 +55,7 @@ def format_tool_calls(calls: list[dict[str, Any]], *, max_chars: int = ARG_CHARS
             rendered = arguments
         else:
             rendered = json.dumps(arguments, ensure_ascii=False, indent=2)
-        if len(rendered) > max_chars:
+        if max_chars is not None and len(rendered) > max_chars:
             rendered = rendered[:max_chars] + f"\n… [{len(rendered)} chars total]"
         function = call.get("function") or "?"
         blocks.append(f"[{index}] {function}\n{rendered}")
